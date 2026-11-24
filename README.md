@@ -51,3 +51,10 @@ When the pattern does not match at all, `extract_named_groups` returns `None`, n
   - `.pattern` (property) returns the original pattern string.
 
 Named groups use the `(?P<name>...)` syntax. Duplicate names and invalid patterns raise `re.error`, matching the behaviour of the standard library.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
